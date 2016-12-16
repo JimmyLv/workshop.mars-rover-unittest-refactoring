@@ -9,6 +9,7 @@ public class MarsRover {
     private static final int X = 0;
 
     public String d;
+    // position which contains X and Y
     private int[] p;
 
     public MarsRover(int startingX, int startingY, String direction) {
