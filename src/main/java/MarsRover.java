@@ -1,74 +1,37 @@
+import type.Command;
+import type.Orientation;
+import type.Position;
+
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+
+import static type.Command.*;
 
 public class MarsRover {
-    private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M");
-    private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
+    private final HashMap<Command, Runnable> COMMANDS = new HashMap<Command, Runnable>() {{
+        put(R, () -> orientation = orientation.right());
+        put(L, () -> orientation = orientation.left());
+        put(M, () -> position = position.shift(orientation));
+        put(B, () -> position = position.shift(orientation.right().right()));
+    }};
 
-    private static final int Y = 1;
-    private static final int X = 0;
+    private Orientation orientation;
+    private Position position;
 
-    private String direction;
-    private int[] position;
-
-    public MarsRover(int startingX, int startingY, String direction) {
-        this.position = new int[]{startingX, startingY};
-        this.direction = direction;
+    public MarsRover(int x, int y, String orientation) {
+        this.position = new Position(x, y);
+        this.orientation = Orientation.valueOf(orientation);
     }
 
-    public String run(String input) {
-        String[] commands = convertInputIntoCommands(input);
+    public String execute(String commands) {
+        Arrays.stream(commands.split(""))
+                .map(Command::valueOf)
+                .forEach(command -> COMMANDS.get(command).run());
 
-        for (String command : commands) {
-            if (command.equals("M")) {
-                move();
-            } else if (command.equals("R")) {
-                turnRight();
-            } else if (command.equals("L")) {
-                turnLeft();
-            }
-        }
-
-        return asString();
+        return status();
     }
 
-    private void move() {
-        if (direction.equals("N")) {
-            position[Y] += +1;
-        } else if (direction.equals("S")) {
-            position[Y] += -1;
-        } else if (direction.equals("E")) {
-            position[X] += +1;
-        } else if (direction.equals("W")) {
-            position[X] += -1;
-        }
-    }
-
-    private String asString() {
-        return position[X] + " " + position[Y] + " " + direction;
-    }
-
-    private void turnLeft() {
-        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 3) % DIRECTIONS.size());
-    }
-
-    private void turnRight() {
-        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.size());
-    }
-
-    private static String[] convertInputIntoCommands(String input) {
-        String[] commandArray = input.split("(?!^)");
-
-        validateCommands(input, commandArray);
-
-        return commandArray;
-    }
-
-    private static void validateCommands(String input, String[] commandArray) {
-        for (String command : commandArray) {
-            if (!VALID_COMMANDS.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + input);
-            }
-        }
+    private String status() {
+        return position + " " + orientation;
     }
 }
