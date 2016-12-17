@@ -32,11 +32,7 @@ public class MarsRover {
                     move();
                     break;
                 case "B":
-                    turnRight();
-                    turnRight();
-                    move();
-                    turnRight();
-                    turnRight();
+                    someDo();
                     break;
                 case "R":
                    turnRight();
@@ -50,16 +46,30 @@ public class MarsRover {
         return asString();
     }
 
+    private void someDo() {
+        turnRight();
+        turnRight();
+        move();
+        turnRight();
+        turnRight();
+    }
+
 
     private void move() {
-        if (d.equals("N")) {
-            p[Y] += +1;
-        } else if (d.equals("S")) {
-            p[Y] += -1;
-        } else if (d.equals("E")) {
-            p[X] += +1;
-        } else if (d.equals("W")) {
-            p[X] += -1;
+
+        switch (d) {
+            case "N":
+                p[Y] += +1;
+                break;
+            case "S":
+                p[Y] += -1;
+                break;
+            case "E":
+                p[X] += +1;
+                break;
+            case "W":
+                p[X] += -1;
+                break;
         }
     }
 
