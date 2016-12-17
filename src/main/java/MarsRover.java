@@ -5,8 +5,8 @@ public class MarsRover {
     private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
     private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
 
-    private static final int startingY = 1;
-    private static final int startingX = 0;
+    private static final int Y = 1;
+    private static final int X = 0;
 
     public String d;
     // position which contains startingX and startingY
@@ -24,38 +24,42 @@ public class MarsRover {
 
         String[] commands = commandArray;
 
-        for (String command : commands) {
-            if (command.equals("M")) {
-                move();
-            } else if (isRightTurnCommand(command)) {
-                turnRight();
-            } else if (command.equals("L")) {
-                turnLeft();
-            } else if (command.equals("B")) {
-                turnRight();
-                turnRight();
-                move();
-                turnRight();
-                turnRight();
+       for (String command : commands) {
+
+            switch (command) {
+
+                case "M":
+                    move();
+                    break;
+                case "B":
+                    turnRight();
+                    turnRight();
+                    move();
+                    turnRight();
+                    turnRight();
+                    break;
+                case "R":
+                   turnRight();
+                    break;
+                case "L":
+                    turnLeft();
+                    break;
             }
         }
 
         return asString();
     }
 
-    private boolean isRightTurnCommand(String command) {
-        return command.equals("R");
-    }
 
     private void move() {
         if (d.equals("N")) {
-            p[startingY] += +1;
+            p[Y] += +1;
         } else if (d.equals("S")) {
-            p[startingY] += -1;
+            p[Y] += -1;
         } else if (d.equals("E")) {
-            p[startingX] += +1;
+            p[X] += +1;
         } else if (d.equals("W")) {
-            p[startingX] += -1;
+            p[X] += -1;
         }
     }
 
@@ -76,6 +80,6 @@ public class MarsRover {
     }
 
     private String asString() {
-        return p[startingX] + " " + p[startingY] + " " + d;
+        return p[X] + " " + p[Y] + " " + d;
     }
 }
