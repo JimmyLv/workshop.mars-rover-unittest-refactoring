@@ -1,15 +1,18 @@
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarsRover {
-    private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
-    private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
-
+    Map<String, Runnable>  COMMANDS = new HashMap<String, Runnable>(){{
+        put("M", () -> move());
+        put("B", () -> moveBackward());
+        put("L", () -> turnLeft());
+        put("R", () -> turnRight());
+    }};;
 
     private Direction direction;
-    // position which contains startingX and startingY
     private Position position;
 
     public MarsRover(int startingX, int startingY, String direction) {
@@ -22,24 +25,8 @@ public class MarsRover {
 
         validateCommands(commands);
 
-        for (String command : commandArray) {
-
-            switch (command) {
-
-                case "M":
-                    move();
-                    break;
-                case "B":
-                    moveBackward();
-                    break;
-                case "R":
-                    turnRight();
-                    break;
-                case "L":
-                    turnLeft();
-                    break;
-            }
-        }
+        Arrays.stream(commandArray)
+                .forEach(command -> COMMANDS.get(command).run());
 
         return asString();
     }
