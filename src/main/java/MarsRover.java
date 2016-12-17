@@ -17,10 +17,10 @@ public class MarsRover {
         this.direction = Direction.valueOf(direction);
     }
 
-    public String run(String input) {
-        String[] commandArray = input.split("");
+    public String run(String commands) {
+        String[] commandArray = commands.split("");
 
-        validateCommands(input);
+        validateCommands(commands);
 
         for (String command : commandArray) {
 
