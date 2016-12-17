@@ -5,11 +5,11 @@ public class MarsRover {
     private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
     private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
 
-    private static final int Y = 1;
-    private static final int X = 0;
+    private static final int startingY = 1;
+    private static final int startingX = 0;
 
     public String d;
-    // position which contains X and Y
+    // position which contains startingX and startingY
     private int[] p;
 
     public MarsRover(int startingX, int startingY, String direction) {
@@ -49,13 +49,13 @@ public class MarsRover {
 
     private void move() {
         if (d.equals("N")) {
-            p[Y] += +1;
+            p[startingY] += +1;
         } else if (d.equals("S")) {
-            p[Y] += -1;
+            p[startingY] += -1;
         } else if (d.equals("E")) {
-            p[X] += +1;
+            p[startingX] += +1;
         } else if (d.equals("W")) {
-            p[X] += -1;
+            p[startingX] += -1;
         }
     }
 
@@ -76,6 +76,6 @@ public class MarsRover {
     }
 
     private String asString() {
-        return p[X] + " " + p[Y] + " " + d;
+        return p[startingX] + " " + p[startingY] + " " + d;
     }
 }
