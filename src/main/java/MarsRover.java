@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MarsRover {
     private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
@@ -31,7 +33,7 @@ public class MarsRover {
                     moveBackward();
                     break;
                 case "R":
-                   turnRight();
+                    turnRight();
                     break;
                 case "L":
                     turnLeft();
@@ -79,12 +81,14 @@ public class MarsRover {
         direction = direction.over();
     }
 
+    static Pattern pattern = Pattern.compile("(L|R|M|B)*");
+
     private void validateCommands(String input, String[] commandArray) {
-        for (String command : commandArray) {
-            if (!VALID_COMMANDS.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + input);
-            }
-        }
+
+        Matcher matcher = pattern.matcher(input);
+        if (!matcher.matches())
+            throw new IllegalArgumentException("Invalid command sequence: " + input);
+
     }
 
     private String asString() {
