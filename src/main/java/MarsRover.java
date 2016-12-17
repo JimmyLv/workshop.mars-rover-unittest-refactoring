@@ -20,7 +20,7 @@ public class MarsRover {
     public String run(String input) {
         String[] commandArray = input.split("");
 
-        validateCommands(input, commandArray);
+        validateCommands(input);
 
         for (String command : commandArray) {
 
@@ -83,7 +83,7 @@ public class MarsRover {
 
     static Pattern pattern = Pattern.compile("(L|R|M|B)*");
 
-    private void validateCommands(String input, String[] commandArray) {
+    private void validateCommands(String input) {
 
         Matcher matcher = pattern.matcher(input);
         if (!matcher.matches())
