@@ -5,15 +5,13 @@ public class MarsRover {
     private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
     private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
 
-    private static final int INDEX_Y = 1;
-    private static final int INDEX_X = 0;
 
-    public String direction;
+    private String direction;
     // position which contains startingX and startingY
-    private int[] position;
+    private Position position;
 
     public MarsRover(int startingX, int startingY, String direction) {
-        this.position = new int[]{startingX, startingY};
+        this.position = new Position(startingX, startingY);
         this.direction = direction;
     }
 
@@ -22,9 +20,7 @@ public class MarsRover {
 
         validateCommands(input, commandArray);
 
-        String[] commands = commandArray;
-
-       for (String command : commands) {
+        for (String command : commandArray) {
 
             switch (command) {
 
@@ -59,16 +55,16 @@ public class MarsRover {
 
         switch (direction) {
             case "N":
-                position[INDEX_Y] += +1;
+                position.y += +1;
                 break;
             case "S":
-                position[INDEX_Y] += -1;
+                position.y += -1;
                 break;
             case "E":
-                position[INDEX_X] += +1;
+                position.x += +1;
                 break;
             case "W":
-                position[INDEX_X] += -1;
+                position.x += -1;
                 break;
         }
     }
@@ -90,6 +86,6 @@ public class MarsRover {
     }
 
     private String asString() {
-        return position[INDEX_X] + " " + position[INDEX_Y] + " " + direction;
+        return position.x + " " + position.y + " " + direction;
     }
 }
