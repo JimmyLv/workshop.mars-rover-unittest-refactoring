@@ -21,7 +21,7 @@ public class MarsRover {
     }
 
     public String run(String commands) {
-        String[] commandArray = commands.split("");
+        String[] commandArray = new CommandParser().parse(commands);
 
         validateCommands(commands);
 
