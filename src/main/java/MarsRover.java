@@ -20,7 +20,7 @@ public class MarsRover {
     public String run(String input) {
         String[] commandArray = input.split("");
 
-        validateCommands(input, commandArray);
+        validateCommands(commandArray);
 
         String[] commands = commandArray;
 
@@ -32,7 +32,7 @@ public class MarsRover {
                     move();
                     break;
                 case "B":
-                    someDo();
+                    moveBackward();
                     break;
                 case "R":
                    turnRight();
@@ -46,7 +46,7 @@ public class MarsRover {
         return asString();
     }
 
-    private void someDo() {
+    private void moveBackward() {
         turnRight();
         turnRight();
         move();
@@ -81,10 +81,10 @@ public class MarsRover {
         d = DIRECTIONS.get((DIRECTIONS.indexOf(d) + 1) % DIRECTIONS.size());
     }
 
-    public static void validateCommands(String input, String[] commandArray) {
+    public static void validateCommands(String[] commandArray) {
         for (String command : commandArray) {
             if (!VALID_COMMANDS.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + input);
+                throw new IllegalArgumentException("Invalid command sequence: " + commandArray);
             }
         }
     }
