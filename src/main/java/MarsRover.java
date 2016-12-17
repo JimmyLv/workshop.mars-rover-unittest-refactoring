@@ -1,31 +1,27 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MarsRover {
-    Map<String, Runnable>  COMMANDS = new HashMap<String, Runnable>(){{
+    private Map<String, Runnable> COMMANDS = new HashMap<String, Runnable>(){{
         put("M", () -> move());
         put("B", () -> moveBackward());
         put("L", () -> turnLeft());
         put("R", () -> turnRight());
-    }};;
+    }};
 
+    private Parser commandParser;
     private Direction direction;
     private Position position;
 
-    public MarsRover(int startingX, int startingY, String direction) {
+    public MarsRover(int startingX, int startingY, String direction, Parser commandParser) {
         this.position = new Position(startingX, startingY);
         this.direction = Direction.valueOf(direction);
+        this.commandParser = commandParser;
     }
 
     public String run(String commands) {
-        String[] commandArray = new CommandParser().parse(commands);
-
-        validateCommands(commands);
-
-        Arrays.stream(commandArray)
+        Arrays.stream(commandParser.parse(commands))
                 .forEach(command -> COMMANDS.get(command).run());
 
         return asString();
@@ -37,9 +33,7 @@ public class MarsRover {
         turnOver();
     }
 
-
     private void move() {
-
         switch (direction) {
             case N:
                 position.y += +1;
@@ -66,16 +60,6 @@ public class MarsRover {
 
     private void turnOver() {
         direction = direction.over();
-    }
-
-    static Pattern pattern = Pattern.compile("(L|R|M|B)*");
-
-    private void validateCommands(String input) {
-
-        Matcher matcher = pattern.matcher(input);
-        if (!matcher.matches())
-            throw new IllegalArgumentException("Invalid command sequence: " + input);
-
     }
 
     private String asString() {

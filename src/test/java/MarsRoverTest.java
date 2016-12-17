@@ -5,12 +5,12 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class MarsRoverTest {
-
     private MarsRover rover;
+    private CommandParser parser = new CommandParser();
 
     @Before
     public void setUp() throws Exception {
-        rover = new MarsRover(1, 1, "N");
+        rover = new MarsRover(1, 1, "N", parser);
     }
 
     @Test
