@@ -43,11 +43,9 @@ public class MarsRover {
     }
 
     private void moveBackward() {
-        turnRight();
-        turnRight();
+        turnOver();
         move();
-        turnRight();
-        turnRight();
+        turnOver();
     }
 
 
@@ -75,6 +73,10 @@ public class MarsRover {
 
     private void turnRight() {
         direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.size());
+    }
+
+    private void turnOver() {
+        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 2) % DIRECTIONS.size());
     }
 
     private void validateCommands(String input, String[] commandArray) {
