@@ -5,22 +5,22 @@ public class MarsRover {
     private static final List<String> VALID_COMMANDS = Arrays.asList("L", "R", "M", "B");
     private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
 
-    private static final int Y = 1;
-    private static final int X = 0;
+    private static final int INDEX_Y = 1;
+    private static final int INDEX_X = 0;
 
-    public String d;
+    public String direction;
     // position which contains startingX and startingY
-    private int[] p;
+    private int[] position;
 
     public MarsRover(int startingX, int startingY, String direction) {
-        this.p = new int[]{startingX, startingY};
-        this.d = direction;
+        this.position = new int[]{startingX, startingY};
+        this.direction = direction;
     }
 
     public String run(String input) {
         String[] commandArray = input.split("");
 
-        validateCommands(commandArray);
+        validateCommands(input, commandArray);
 
         String[] commands = commandArray;
 
@@ -57,39 +57,39 @@ public class MarsRover {
 
     private void move() {
 
-        switch (d) {
+        switch (direction) {
             case "N":
-                p[Y] += +1;
+                position[INDEX_Y] += +1;
                 break;
             case "S":
-                p[Y] += -1;
+                position[INDEX_Y] += -1;
                 break;
             case "E":
-                p[X] += +1;
+                position[INDEX_X] += +1;
                 break;
             case "W":
-                p[X] += -1;
+                position[INDEX_X] += -1;
                 break;
         }
     }
 
     private void turnLeft() {
-        d = DIRECTIONS.get((DIRECTIONS.indexOf(d) + 3) % DIRECTIONS.size());
+        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 3) % DIRECTIONS.size());
     }
 
     private void turnRight() {
-        d = DIRECTIONS.get((DIRECTIONS.indexOf(d) + 1) % DIRECTIONS.size());
+        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.size());
     }
 
-    public static void validateCommands(String[] commandArray) {
+    private void validateCommands(String input, String[] commandArray) {
         for (String command : commandArray) {
             if (!VALID_COMMANDS.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + commandArray);
+                throw new IllegalArgumentException("Invalid command sequence: " + input);
             }
         }
     }
 
     private String asString() {
-        return p[X] + " " + p[Y] + " " + d;
+        return position[INDEX_X] + " " + position[INDEX_Y] + " " + direction;
     }
 }
