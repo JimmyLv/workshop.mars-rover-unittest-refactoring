@@ -6,13 +6,13 @@ public class MarsRover {
     private static final List<String> DIRECTIONS = Arrays.asList("N", "E", "S", "W");
 
 
-    private String direction;
+    private Direction direction;
     // position which contains startingX and startingY
     private Position position;
 
     public MarsRover(int startingX, int startingY, String direction) {
         this.position = new Position(startingX, startingY);
-        this.direction = direction;
+        this.direction = Direction.valueOf(direction);
     }
 
     public String run(String input) {
@@ -52,31 +52,31 @@ public class MarsRover {
     private void move() {
 
         switch (direction) {
-            case "N":
+            case N:
                 position.y += +1;
                 break;
-            case "S":
+            case S:
                 position.y += -1;
                 break;
-            case "E":
+            case E:
                 position.x += +1;
                 break;
-            case "W":
+            case W:
                 position.x += -1;
                 break;
         }
     }
 
     private void turnLeft() {
-        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 3) % DIRECTIONS.size());
+        direction = direction.left();
     }
 
     private void turnRight() {
-        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.size());
+        direction = direction.right();
     }
 
     private void turnOver() {
-        direction = DIRECTIONS.get((DIRECTIONS.indexOf(direction) + 2) % DIRECTIONS.size());
+        direction = direction.over();
     }
 
     private void validateCommands(String input, String[] commandArray) {
