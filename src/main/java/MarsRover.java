@@ -1,6 +1,5 @@
 public class MarsRover {
 
-
     private int positionX;
     private int positionY;
     private String direction;
@@ -13,16 +12,23 @@ public class MarsRover {
     }
 
     public String run(String command) {
-        if (command.equals("L")) {
-            return "(0, 0, W)";
-        } else if(command.equals("R")){
-            return "(0, 0, E)";
-        } else if(command.equals("M")){
-             move();
-            return String.format("(%d, %d, %s)", positionX, positionY, direction);
-        } else{
-            return null;
+
+        for (int i = 0; i < command.length(); i++) {
+
+            String singleCommand = command.substring(i, i + 1);
+
+            if ("M".equals(singleCommand)) {
+                move();
+            } else if ("L".equals(singleCommand)) {
+
+                this.direction = Direction.trunLeft(this.direction);
+            } else if ("R".equals(singleCommand)) {
+
+                this.direction = Direction.trunRight(this.direction);
+            }
         }
+
+        return String.format("(%d, %d, %s)", this.positionX, this.positionY, direction);
     }
 
     private void move() {
@@ -30,6 +36,8 @@ public class MarsRover {
             positionY += 1;
         } else if (direction.equals("W")) {
             positionX -= 1;
+        } else if (direction.equals("E")){
+            positionX += 1;
         }
 
     }
