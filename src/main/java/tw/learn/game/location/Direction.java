@@ -1,4 +1,4 @@
-package tw.learn.game;
+package tw.learn.game.location;
 
 public enum Direction {
     N, E, S, W;

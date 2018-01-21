@@ -1,14 +1,18 @@
+import static tw.learn.game.location.Direction.*;
+
+import tw.learn.game.location.Direction;
+
 public class MarsRover {
 
     private int positionX;
     private int positionY;
-    private String direction;
+    private Direction direction;
 
     public MarsRover(int positionX, int positionY, String direction) {
 
         this.positionX = positionX;
         this.positionY = positionY;
-        this.direction = direction;
+        this.direction = Direction.valueOf(direction);
     }
 
     public String run(String command) {
@@ -21,10 +25,10 @@ public class MarsRover {
                 move();
             } else if ("L".equals(singleCommand)) {
 
-                this.direction = Direction.trunLeft(this.direction);
+                this.direction = this.direction.left();
             } else if ("R".equals(singleCommand)) {
 
-                this.direction = Direction.trunRight(this.direction);
+                this.direction = this.direction.right();
             }
         }
 
@@ -32,11 +36,11 @@ public class MarsRover {
     }
 
     private void move() {
-        if (direction.equals("N")) {
+        if (direction.equals(N)) {
             positionY += 1;
-        } else if (direction.equals("W")) {
+        } else if (direction.equals(W)) {
             positionX -= 1;
-        } else if (direction.equals("E")){
+        } else if (direction.equals(E)) {
             positionX += 1;
         }
 
