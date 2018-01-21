@@ -31,4 +31,21 @@ public class MarsRoverTest {
 
         assertThat(result, is("(0, 1, N)"));
     }
+
+    @Test
+    public void should_move_to_1_1_W_after_receiving_M(){
+        MarsRover marsRover = new MarsRover(1, 1, "W");
+
+        String result = marsRover.run("M");
+
+        assertThat(result, is("(0, 1, W)"));
+    }
+    @Test
+    public void should_move_to_1_0_N_after_receiving_RML(){
+        MarsRover marsRover = new MarsRover(0, 0, "N");
+
+        String result = marsRover.run("RML");
+
+        assertThat(result, is("(1, 0, N)"));
+    }
 }
